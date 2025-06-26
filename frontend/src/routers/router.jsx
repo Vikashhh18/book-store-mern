@@ -15,7 +15,8 @@ import Deshboard from "../pages/Deshboard/Deshboard";
 import DashboardLayout from "../pages/Deshboard/DashboardLayout";
 import ManageBook from "../pages/Deshboard/manageBook/ManageBook";
 import UpdateBook from "../pages/Deshboard/editBook/UpdateBook";
-import AddBook from "../pages/Deshboard/addbook/AddBook";
+import PushBook from "../pages/Deshboard/addBook/PushBook";
+// import AddBook from "../pages/Deshboard/addbook/AddBook";
 
 const router = createBrowserRouter([
     {
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
     },
     {
       path: "add-new-book",
-      element: <AdminRoute><AddBook/></AdminRoute>,
+      element: <AdminRoute><PushBook/></AdminRoute>,
     },
     {
       path: "edit-book/:id",
