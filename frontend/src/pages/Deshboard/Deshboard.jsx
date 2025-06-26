@@ -84,7 +84,7 @@ const Dashboard = () => {
       description: 'Completed orders',
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
-      // link: '/dashboard/orders'
+      // link: '/dashboard/orders'git add README.md
     },
     {
       icon: <MdAccessTime className="text-2xl" />,
