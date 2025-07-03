@@ -13,16 +13,10 @@ const port=process.env.PORT||5001;
 
 // // middleware
 app.use(express.json());
-const allowedOrigins = ['https://book-store-mern-mu.vercel.app'];
+
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);s
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "https://book-store-mern-mu.vercel.app",
   credentials: true,
 }));
 

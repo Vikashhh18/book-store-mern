@@ -15,15 +15,14 @@ export const postAbook=async(req,res)=>{
 }
 
 //get all books
-export const getAllBooks=async(req,res)=>{
-    try {
-        const books=await Book.find().sort({createdAt:-1});
-        res.status(201).send(books);
-        
-    } catch (error) {
-        res.status(400).send({message:"somethign went wrong",error});
-    }
-}
+export const getAllBooks = async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // get single book detail
 export const getBook=async(req,res)=>{
@@ -58,21 +57,8 @@ export const updateBook=async(req,res)=>{
 }
 
 // delete the book 
-export const deleteBook=async(req,res)=>{
-    // try {
-    //     const {id}=req.params;
-    //     const deltedBook=await Book.findByIdAndDelete(id);
-    //     if(!deltedBook){
-    //         res.status(404).send({message:"something went wrong"})
-    //     }
-    //     res.status(201).send({
-    //         message:"book delete successfully",
-    //         book:deltedBook
-    //     })
-
-    // } catch (error) {
-    //     res.status(400).send({message:"somethign went wrong",error});
-    // }
+export const deleteBook=async(req,res)=>{   
+   
      try {
         const {id} = req.params;
         const deletedBook =  await Book.findByIdAndDelete(id);
