@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useFecthBookByIdQuery, useFetchAllBooksQuery, useUpdateBookMutation } from '../../../redux/book/BookApi';
 import { baseUrl } from '../../../utils/baseUrl';
 import Loading from '../../../components/Loading';
-import InputField from '../addbook/InputField';
-import SelectField from '../addbook/SelectField';
+import InputField from '../InputField';
+import SelectField from '../SelectField';
 import { useParams } from 'react-router-dom';
 
 const UpdateBook = () => {

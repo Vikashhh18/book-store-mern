@@ -15,7 +15,7 @@ import Deshboard from "../pages/Deshboard/Deshboard";
 import DashboardLayout from "../pages/Deshboard/DashboardLayout";
 import ManageBook from "../pages/Deshboard/manageBook/ManageBook";
 import UpdateBook from "../pages/Deshboard/editBook/UpdateBook";
-import PushBook from "../pages/Deshboard/addBook/PushBook";
+import PushBook from "../pages/Deshboard/PushBook";
 // import AddBook from "../pages/Deshboard/addbook/AddBook";
 
 const router = createBrowserRouter([

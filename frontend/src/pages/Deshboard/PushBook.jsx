@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import { useAddBookMutation } from '../../../redux/book/BookApi';
+import { useAddBookMutation } from '../../redux/book/BookApi';
 import InputField from './InputField';
 import SelectField from './SelectField';
 
