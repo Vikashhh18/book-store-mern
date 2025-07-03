@@ -5,9 +5,9 @@ import axios from 'axios';
 import { useFecthBookByIdQuery, useFetchAllBooksQuery, useUpdateBookMutation } from '../../../redux/book/BookApi';
 import { baseUrl } from '../../../utils/baseUrl';
 import Loading from '../../../components/Loading';
+import { useParams } from 'react-router-dom';
 import InputField from '../InputField';
 import SelectField from '../SelectField';
-import { useParams } from 'react-router-dom';
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -38,12 +38,6 @@ const UpdateBook = () => {
       coverImage: data.coverImage || bookData.coverImage,
     };
     try {
-    //   await axios.put(`${baseUrl}"/api/books/edit-book/${id}`, updateBookData, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //     }
-    //   })
     await updateBook({ id, ...updateBookData }).unwrap();
       Swal.fire({
         title: "Book Updated",

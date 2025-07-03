@@ -7,16 +7,10 @@ import { useCreateOrderMutation } from '../../redux/orders/OrderApi';
 import Swal from 'sweetalert2';
 
 const Checkout = () => {
-
-  // const [createOrder]=useCreateOrderMutation();
-
   const cartItems = useSelector(state => state.cart.cartItems);
   const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
-
-  // Dummy user object (replace with actual user data if available)
-  const {currentUser}=useAuth();
-  const navigate=useNavigate();
-
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
 
   const {
@@ -25,62 +19,50 @@ const Checkout = () => {
     formState: { errors }
   } = useForm();
 
-  // const [createOrder] = useCreateOrderMutation();
-  const [createOrder] = useCreateOrderMutation(); 
+  const [createOrder] = useCreateOrderMutation();
 
+  const onSubmit = async (data) => {
+    const newOrder = {
+      name: data.name,
+      email: currentUser?.email,
+      phone: data.phone,
+      address: {
+        city: data.city,
+        country: data.country,
+        state: data.state,
+        zipcode: data.zipcode
+      },
+      productId: cartItems.map(item => item._id),
+      totalPrice: parseFloat(totalPrice),
+      totalItem: cartItems.length
+    };
 
-const onSubmit = async (data) => {
-  const newOrder = {
-    name: data.name,
-    email: data.email,
-    address: {
-      city: data.city,
-      country: data.country,
-      state: data.state,
-      zipcode: data.zipcode
-    },
-    phone: data.phone,
-    productId: cartItems.map(item => item._id),
-    totalPrice: totalPrice,
-    totalItem: cartItems.length
+    try {
+      await createOrder(newOrder).unwrap();
+      Swal.fire({
+        title: "Order successfully placed",
+        icon: "success",
+        showClass: {
+          popup: `animate__animated animate__fadeInUp animate__faster`
+        },
+        hideClass: {
+          popup: `animate__animated animate__fadeOutDown animate__faster`
+        }
+      });
+      navigate("/orders");
+    } catch (error) {
+      alert("❌ Failed to place an order");
+      console.error("Order error:", error);
+    }
   };
-
-  try {
-    await createOrder(newOrder).unwrap();
-    Swal.fire({
-  title: "Order successfully placed",
-  showClass: {
-    popup: `
-      animate__animated
-      animate__fadeInUp
-      animate__faster
-    `
-  },
-  hideClass: {
-    popup: `
-      animate__animated
-      animate__fadeOutDown
-      animate__faster
-    `
-  }
-});
-    navigate("/orders");  
-  } catch (error) {
-    alert("❌ Failed to place an order");
-    console.error(error);
-  }
-};
-
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
         <div>
-          <div>
-            <h2 className="font-semibold text-xl text-gray-600 mb-2">Cash On Delivery</h2>
-            <p className="text-gray-500 mb-2">Total Price: ${totalPrice}</p>
-            <p className="text-gray-500 mb-6">Items: {cartItems.length}</p>
-          </div>
+          <h2 className="font-semibold text-xl text-gray-600 mb-2">Cash On Delivery</h2>
+          <p className="text-gray-500 mb-2">Total Price: ${totalPrice}</p>
+          <p className="text-gray-500 mb-6">Items: {cartItems.length}</p>
 
           <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
             <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 my-8">
@@ -104,13 +86,11 @@ const onSubmit = async (data) => {
                   <div className="md:col-span-5">
                     <label htmlFor="email">Email Address</label>
                     <input
-                      {...register("email")}
                       type="email"
                       id="email"
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       disabled
-                      defaultValue={currentUser?.email}
-                      placeholder="email@domain.com"
+                      value={currentUser?.email}
                     />
                   </div>
 
@@ -122,16 +102,6 @@ const onSubmit = async (data) => {
                       id="phone"
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       placeholder="+123 456 7890"
-                    />
-                  </div>
-
-                  <div className="md:col-span-3">
-                    <label htmlFor="address">Address / Street</label>
-                    <input
-                      {...register("address", { required: true })}
-                      type="text"
-                      id="address"
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                     />
                   </div>
 
